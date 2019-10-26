@@ -1,6 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import Nav from '../components/nav'
+const DynamicComponent = dynamic(
+  () => import('../components/Photo'),
+  { loading: () => <p>...</p>, ssr: false }
+)
 
 const Home = () => (
   <div>
@@ -10,6 +15,8 @@ const Home = () => (
     </Head>
 
     <Nav />
+
+    <DynamicComponent />
 
     <div className='hero'>
       <h1 className='title'>Welcome to Next.js!</h1>
@@ -25,13 +32,6 @@ const Home = () => (
         <a href='https://nextjs.org/learn' className='card'>
           <h3>Next.js Learn &rarr;</h3>
           <p>Learn about Next.js by following an interactive tutorial!</p>
-        </a>
-        <a
-          href='https://github.com/zeit/next.js/tree/master/examples'
-          className='card'
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Find other example boilerplates on the Next.js GitHub.</p>
         </a>
       </div>
     </div>
