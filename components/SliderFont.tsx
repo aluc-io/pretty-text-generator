@@ -137,6 +137,7 @@ export default (props: IProps) => {
   return (
     <SliderBasic
       title={`fontFamily: ${title}`}
+      labelType={'TITLE'}
       step={1} min={0} max={stateFontArr.length-1}
       ValueLabelComponent={TooltipFont}
       value={fontIdx}

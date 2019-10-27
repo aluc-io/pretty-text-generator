@@ -5,6 +5,7 @@ import { ValueLabelProps, Mark } from '@material-ui/core/Slider'
 
 interface IProps {
   title: string
+  labelType?: 'TITLE_VALUE' | 'TITLE'
   min: number
   max: number
   step: number
@@ -15,21 +16,29 @@ interface IProps {
   getAriaValueText?: (value: number, index: number) => string
 }
 
-export default (props: IProps) =>
-  <div style={{ width: 512 }}>
-    <div>
-      <span>{`${props.title}: ${props.value}`}</span>
+export default (props: IProps) => {
+  const { title, labelType='TITLE_VALUE' } = props
+  const label = labelType === 'TITLE_VALUE'
+    ? `${props.title}: ${props.value}`
+    : title
+
+  return (
+    <div style={{ width: 512 }}>
+      <div>
+        <span>{label}</span>
+      </div>
+      <Slider
+        value={props.value}
+        aria-labelledby="discrete-slider"
+        valueLabelDisplay="auto"
+        step={props.step}
+        ValueLabelComponent={props.ValueLabelComponent}
+        marks={props.marks || true}
+        min={props.min}
+        max={props.max}
+        onChange={(_, value) => props.setValue(isArray(value) ? value[0] : value)}
+        getAriaValueText={props.getAriaValueText}
+      />
     </div>
-    <Slider
-      value={props.value}
-      aria-labelledby="discrete-slider"
-      valueLabelDisplay="auto"
-      step={props.step}
-      ValueLabelComponent={props.ValueLabelComponent}
-      marks={props.marks || true}
-      min={props.min}
-      max={props.max}
-      onChange={(_, value) => props.setValue(isArray(value) ? value[0] : value)}
-      getAriaValueText={props.getAriaValueText}
-    />
-  </div>
+  )
+}
