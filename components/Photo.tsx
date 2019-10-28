@@ -1,10 +1,10 @@
-import React, { useState, useReducer } from 'react'
-import { Stage, PixiComponent, applyDefaultProps, Text } from '@inlet/react-pixi'
+import React, { useState, useReducer, useRef } from 'react'
+import { Stage, PixiComponent } from '@inlet/react-pixi'
 import { TextStyle, Texture, Sprite, Text as PIXIText} from 'pixi.js'
 import { RGBColor, SketchPicker } from 'react-color'
 import rgbHex from 'rgb-hex'
 import hexRgb from 'hex-rgb'
-import { TextField, FormControl, InputLabel, OutlinedInput, Input, FormHelperText } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 import Trianglify from 'trianglify'
 import { range, isEqual, throttle, debounce } from 'lodash'
 import colors from 'nice-color-palettes'
@@ -166,6 +166,16 @@ const getRGBColorFromHexString = (color: string): RGBColor => {
 
 const getXColors = (arr: string[]) => [arr[0], arr[1], arr[3]]
 
+const download = (ref: any) => {
+  if (!ref.current) return
+
+  const canvas: HTMLCanvasElement = ref.current._canvas
+  const link = document.createElement('a')
+  link.download = 'pretty-text.png'
+  link.href = canvas.toDataURL('image/png')
+  link.click()
+}
+
 const Photo = () => {
   console.log('render')
   const [text, setText] = useState('홍길동')
@@ -187,16 +197,13 @@ const Photo = () => {
   const [stateFontArr, dispatchFontArr] = useReducer(reducerFontArr, initStateFontArr)
   // const fontFamily = `'${fontArr[fontIdx][0]}', ${fontArr[fontIdx][1]}`
   const fontInfo = stateFontArr[fontIdx]
-  console.log(fontInfo)
-  if (!fontInfo) {
-    debugger;
-  }
   const fontFamily = getFontFamilyFromFontInfo(fontInfo)
   console.log('fontFamily:' + fontFamily)
+  const ref = useRef()
 
   return (
     <>
-      <Stage width={512} height={512} options={{ transparent: true }}>
+      <Stage ref={ref} width={512} height={512} options={{ preserveDrawingBuffer: true }}>
         {/*<Rectangle color={colorBGNumber} alpha={0.5} x={0} y={0} width={512} height={512}/>*/}
         {/* <Rectangle color={firstColorNumber} alpha={0.5} x={0} y={0} width={512} height={512}/> */}
         {/* 경계선이 투명하게 되는 부분을 비슷한 색으로 보정하기 위해 뒤에 한장 더 깐다 */}
@@ -259,39 +266,27 @@ const Photo = () => {
       />
 
       <SliderBasic
-        title={'fontSize'}
-        step={10} min={10} max={400}
-        value={fontSize}
-        setValue={setFontSize}
+        title={'fontSize'} step={10} min={10} max={400}
+        value={fontSize} setValue={setFontSize}
       />
       <SliderBasic
-        title={'lineHeight'}
-        step={10} min={0} max={400}
-        value={lineHeight}
-        setValue={setLineHeight}
+        title={'lineHeight'} step={10} min={0} max={400}
+        value={lineHeight} setValue={setLineHeight}
       />
       <SliderBasic
-        title={'anchor'}
-        step={0.1} min={0} max={1}
-        value={anchor}
-        setValue={setAnchor}
+        title={'anchor'} step={0.1} min={0} max={1}
+        value={anchor} setValue={setAnchor}
       />
       <SliderBasic
-        title={'fontWeight'}
-        step={100} min={200} max={800}
-        value={fontWeight}
-        setValue={setFontWeight}
+        title={'fontWeight'} step={100} min={200} max={800}
+        value={fontWeight} setValue={setFontWeight}
       />
       <SliderBasic
-        title={'letterSpacing'}
-        step={1} min={0} max={40}
-        value={letterSpacing}
-        setValue={setLetterSpacing}
+        title={'letterSpacing'} step={1} min={0} max={40}
+        value={letterSpacing} setValue={setLetterSpacing}
       />
-
       <SliderBasic
-        title={'seed'}
-        step={10} min={10} max={400}
+        title={'seed'} step={10} min={10} max={400}
         value={seed} setValue={setSeed}
       />
       <SliderBasic
@@ -304,10 +299,8 @@ const Photo = () => {
         value={cellSize} setValue={setCellSize}
       />
       <SliderBasic
-        title={'x_colors'}
-        step={1} min={1} max={colors.length-1}
-        value={xColorsIdx}
-        setValue={xColorsIdx => {
+        title={'x_colors'} step={1} min={1} max={colors.length-1}
+        value={xColorsIdx} setValue={xColorsIdx => {
           if (stateColor.xColorsIdx === xColorsIdx) return
           console.log('SET_X_COLORS_IDX')
           dispatchColor({ type: 'SET_X_COLORS_IDX', xColorsIdx })
@@ -325,6 +318,11 @@ const Photo = () => {
           }}
         />
       </div>
+      <Button variant="outlined" color="primary" onClick={() => download(ref)}>
+        Download
+      </Button>
+
+
       <style jsx>{`
         :global(.text .MuiInput-inputMultiline) {
           font-family: ${fontFamily};
@@ -334,7 +332,6 @@ const Photo = () => {
           width: 512px;
         }
       `}</style>
-
     </>
   )
 }
