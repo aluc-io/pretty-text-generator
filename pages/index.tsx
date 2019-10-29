@@ -18,6 +18,9 @@ const Home = () => (
     <Head>
       <title>Home</title>
       <link rel='icon' href='/favicon.ico' />
+      <meta property="og:site_name" content="Pretty Text Generator"/>
+      <meta property="og:title" content="Create images of pretty letters!"/>
+      <meta property="og:image" content="https://repository-images.githubusercontent.com/217741173/15ca9080-f9e3-11e9-94ef-4aa7a1f08a46"/>
     </Head>
 
     <DynamicGithubCorner
