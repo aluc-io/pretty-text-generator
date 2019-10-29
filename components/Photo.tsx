@@ -8,8 +8,14 @@ import { TextField, Button } from '@material-ui/core'
 import Trianglify from 'trianglify'
 import { range, isEqual, throttle, debounce } from 'lodash'
 import colors from 'nice-color-palettes'
+import ReactGA from 'react-ga'
+
 import SliderBasic from './SliderBasic'
 import SliderFont, { reducerFontArr, initStateFontArr, IFontInfo } from './SliderFont'
+
+ReactGA.initialize(process.env.GA_TRACKING_ID)
+console.log(process.env.GA_TRACKING_ID)
+ReactGA.pageview(window.location.pathname + window.location.search)
 
 interface IState {
   xColorsIdx: number
@@ -166,7 +172,7 @@ const getRGBColorFromHexString = (color: string): RGBColor => {
 
 const getXColors = (arr: string[]) => [arr[0], arr[1], arr[3]]
 
-const download = (ref: any) => {
+const download = (ref: any, text: string) => {
   if (!ref.current) return
 
   const canvas: HTMLCanvasElement = ref.current._canvas
@@ -174,6 +180,8 @@ const download = (ref: any) => {
   link.download = 'pretty-text.png'
   link.href = canvas.toDataURL('image/png')
   link.click()
+
+  ReactGA.event({ category: 'order', action: text, label: 'download-image' })
 }
 
 const Photo = () => {
@@ -323,7 +331,7 @@ const Photo = () => {
 
       <Button
         style={{width:512}}
-        variant="outlined" color="primary" onClick={() => download(ref)}>
+        variant="outlined" color="primary" onClick={() => download(ref, text)}>
         Download
       </Button>
 
