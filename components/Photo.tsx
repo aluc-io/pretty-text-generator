@@ -266,11 +266,11 @@ const Photo = () => {
       />
 
       <SliderBasic
-        title={'fontSize'} step={10} min={10} max={400}
+        title={'fontSize'} step={10} min={10} max={500}
         value={fontSize} setValue={setFontSize}
       />
       <SliderBasic
-        title={'lineHeight'} step={10} min={0} max={400}
+        title={'lineHeight'} step={10} min={0} max={500}
         value={lineHeight} setValue={setLineHeight}
       />
       <SliderBasic

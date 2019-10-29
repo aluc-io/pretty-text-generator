@@ -1,7 +1,10 @@
-# text-profile
-Create a text-based profile image.
+# pretty-text-generator
+Create images of pretty letters!
 
-- [Live Demo][live_demo]
+![guide1](./docs/guide-1.gif)
+
+- [Multiline guide](./docs/guide-2.gif)
+- [🎉🎉 Live Demo][live_demo]
 
 ## Development
 
@@ -12,8 +15,16 @@ $ open localhost:3000
 ```
 
 ## Deploy
+Deploy your own Next.js project with ZEIT Now.
 
-// TODO
+[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/aluc-io/pretty-text-generator/tree/master)
+
+## What to do next
+- Better UI
+- Mobile support
+- Error page for Not support browser
+- Add API server to share recent history
+- Dynamic image resolution
 
 ## Contributing
 - Feel free to create an issue.
@@ -32,4 +43,4 @@ $ open localhost:3000
 ## License
 GPLv3 License
 
-[live_demo]: http://example.com
+[live_demo]: https://pt.aluc.io
