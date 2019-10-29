@@ -16,7 +16,7 @@ const DynamicGithubCorner = dynamic(
 const Home = () => (
   <div>
     <Head>
-      <title>Home</title>
+      <title>Pretty Text Generator</title>
       <link rel='icon' href='/favicon.ico' />
       <meta property="og:site_name" content="Pretty Text Generator"/>
       <meta property="og:title" content="Create images of pretty letters!"/>
@@ -31,7 +31,6 @@ const Home = () => (
       ariaLabel="Check my project"
       openInNewTab={true}
     />
-
 
     <div className='main'>
       <div className='title'>Pretty Text Generator</div>
