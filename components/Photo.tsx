@@ -282,7 +282,7 @@ const Photo = () => {
         value={fontWeight} setValue={setFontWeight}
       />
       <SliderBasic
-        title={'letterSpacing'} step={1} min={0} max={40}
+        title={'letterSpacing'} step={2} min={-60} max={60}
         value={letterSpacing} setValue={setLetterSpacing}
       />
       <SliderBasic
@@ -299,7 +299,7 @@ const Photo = () => {
         value={cellSize} setValue={setCellSize}
       />
       <SliderBasic
-        title={'x_colors'} step={1} min={1} max={colors.length-1}
+        title={'colorCombination'} step={1} min={1} max={colors.length-1}
         value={xColorsIdx} setValue={xColorsIdx => {
           if (stateColor.xColorsIdx === xColorsIdx) return
           console.log('SET_X_COLORS_IDX')
@@ -318,7 +318,12 @@ const Photo = () => {
           }}
         />
       </div>
-      <Button variant="outlined" color="primary" onClick={() => download(ref)}>
+
+      <div style={{height:20}}/>
+
+      <Button
+        style={{width:512}}
+        variant="outlined" color="primary" onClick={() => download(ref)}>
         Download
       </Button>
 
