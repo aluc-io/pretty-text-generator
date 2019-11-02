@@ -59,8 +59,7 @@ interface ITextCanvasProps extends ICanvasState {
   _ref: React.LegacyRef<Stage>,
 }
 
-
-const TextCanvas: FunctionComponent<ITextCanvasProps> = props => {
+const ImageCanvas: FunctionComponent<ITextCanvasProps> = props => {
   const {
     text, anchor, seed, cellSize, xColorsIdx, lineHeight,
     fontSize, fontWeight, colorText, letterSpacing, fontInfo,
@@ -115,4 +114,4 @@ const TextCanvas: FunctionComponent<ITextCanvasProps> = props => {
   )
 }
 
-export default TextCanvas
+export default ImageCanvas

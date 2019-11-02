@@ -1,7 +1,8 @@
 import { Slider } from '@material-ui/core'
 import { isArray } from 'util'
-import { ElementType } from 'react'
+import { ElementType, memo } from 'react'
 import { ValueLabelProps, Mark } from '@material-ui/core/Slider'
+import { SlideProps } from '@material-ui/core/Slide'
 
 interface IProps {
   title: string
@@ -16,7 +17,7 @@ interface IProps {
   getAriaValueText?: (value: number, index: number) => string
 }
 
-export default (props: IProps) => {
+const SliderBasic = (props: IProps) => {
   const { title, labelType='TITLE_VALUE' } = props
   const label = labelType === 'TITLE_VALUE'
     ? `${props.title}: ${props.value}`
@@ -37,7 +38,7 @@ export default (props: IProps) => {
         min={props.min}
         max={props.max}
         onChange={(_, value) => {
-          console.log('onChange: ' + value)
+          if (value === props.value) return
           props.setValue(isArray(value) ? value[0] : value)
         }}
         getAriaValueText={props.getAriaValueText}
@@ -51,3 +52,11 @@ export default (props: IProps) => {
     </div>
   )
 }
+
+const propsAreEqual = (prevProps: Readonly<IProps>, nextProps: Readonly<IProps>) => {
+  // 현재 application 동작 중 value 값의 변화만 일어나기 때문에
+  return prevProps.value === nextProps.value
+}
+
+export default memo(SliderBasic, propsAreEqual)
+

@@ -9,7 +9,7 @@ import SliderBasic from './SliderBasic'
 import SliderFont, { reducerFontArr, initStateFontArr, getFontFamilyFromFontInfo } from './SliderFont'
 import { useScale } from '../logic/helper'
 import reducer, { initState } from '../logic/reducer'
-import TextCanvas from './TextCanvas'
+import ImageCanvas from './ImageCanvas'
 import Sticky from './Sticky'
 
 console.log(process.env.GA_TRACKING_ID)
@@ -30,9 +30,9 @@ const download = (ref: any, text: string) => {
   ReactGA.event({ category: 'order', action: text, label: 'download-image' })
 }
 
-const Photo = () => {
+const CanvasAndController = () => {
   console.log('render Photo')
-  const scale= useScale((window.innerWidth-20)/512)
+  const scale = useScale(window.innerWidth)
   const [state, dispatch] = useReducer(reducer, initState);
   const set = (key: string) => (value: any) => dispatch({ type: 'SET', key, value })
   const {
@@ -43,7 +43,6 @@ const Photo = () => {
   const [stateFontArr, dispatchFontArr] = useReducer(reducerFontArr, initStateFontArr)
   const fontInfo = stateFontArr[fontIdx]
   const fontFamily = getFontFamilyFromFontInfo(fontInfo)
-
   const ref = useRef()
 
   return (
@@ -57,7 +56,7 @@ const Photo = () => {
             width: 512 * scale,
             height: 512 * scale,
           }}>
-          <TextCanvas {...state} fontInfo={fontInfo} _ref={ref}/>
+          <ImageCanvas {...state} fontInfo={fontInfo} _ref={ref}/>
         </div>
       </Sticky>
 
@@ -116,11 +115,11 @@ const Photo = () => {
           ]}
           value={cellSize} setValue={set('cellSize')}
         />
+        <div/>
         <SliderBasic
           title={'colorCombination'} step={1} min={1} max={colors.length-1}
           value={xColorsIdx} setValue={xColorsIdx => {
             if (state.xColorsIdx === xColorsIdx) return
-            console.log('SET_X_COLORS_IDX')
             dispatch({ type: 'SET_X_COLORS_IDX', xColorsIdx })
           }}
         />
@@ -183,4 +182,4 @@ const Photo = () => {
   )
 }
 
-export default Photo
+export default CanvasAndController

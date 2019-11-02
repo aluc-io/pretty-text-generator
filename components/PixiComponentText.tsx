@@ -1,6 +1,7 @@
 import { PixiComponent } from '@inlet/react-pixi'
-import { TextStyle, Texture, Sprite, Text as PIXIText} from 'pixi.js'
+import { TextStyle, Text as PIXIText} from 'pixi.js'
 import { getFontFamilyFromFontInfo, IFontInfo } from './SliderFont'
+import { throttle } from 'lodash'
 
 type TPropsPixiComponentText = {
   text: string
@@ -42,6 +43,8 @@ const updateText = (instance: PIXIText, oldProps: TPropsPixiComponentText, props
   }
 }
 
+const throttledUpdateText = throttle(updateText, 50)
+
 const PixiComponentText = PixiComponent<TPropsPixiComponentText, PIXIText>('PixiComponentText', {
   create: (props) => {
     const instance = new PIXIText(props.text)
@@ -69,7 +72,7 @@ const PixiComponentText = PixiComponent<TPropsPixiComponentText, PIXIText>('Pixi
       return
     }
 
-    updateText(instance, oldProps, newProps)
+    throttledUpdateText(instance, oldProps, newProps)
   }
 })
 

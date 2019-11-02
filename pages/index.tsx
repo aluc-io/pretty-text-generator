@@ -16,9 +16,7 @@ const DynamicGithubCorner = dynamic(
 )
 
 const Home = () => {
-
   const scale = useScale(getScale(640))
-
   return (
     <div>
       <Head>
