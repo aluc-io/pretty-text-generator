@@ -22,7 +22,7 @@ type TPropsTrianglify = {
   y_colors: string | false | string[],
 }
 
-const getXColors = (arr: string[]) => [arr[0], arr[1], arr[3]]
+const getXColors = (arr: string[]) => [arr[1], arr[0], arr[2]]
 
 const getColorNumberFromRGBColor = (color: RGBColor) => {
   return Number(`0x${rgbHex(color.r, color.g, color.b)}`)

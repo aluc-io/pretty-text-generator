@@ -1,6 +1,7 @@
 import hexRgb from 'hex-rgb'
 import { RGBColor } from 'react-color'
 import colors from 'nice-color-palettes'
+import { sample } from 'lodash'
 
 
 const getRGBColorFromHexString = (color: string): RGBColor => {
@@ -27,15 +28,38 @@ type TActionXColorIdx = { type: 'SET_X_COLORS_IDX', xColorsIdx: number }
 type TActionSetColorText = { type: 'SET_COLOR_TEXT', colorText: RGBColor }
 type TAction = TActionSet | TActionXColorIdx | TActionSetColorText
 
-export const initState: ICanvasState = {
-  text: '홍길동',
+const options = [{
   colorText: { r: 244, g: 244, b: 255, a: 1 },
+  xColorsIdx: 66,
+  fontSize: 250,
+  lineHeight: 250,
+}, {
+  colorText: { r: 190, g: 242, b: 2, a: 1 },
+  xColorsIdx: 28,
+  fontSize: 250,
+  lineHeight: 250,
+}, {
+  colorText: { r: 170, g: 0, b: 255, a: 1 },
+  xColorsIdx: 95,
+  fontSize: 250,
+  lineHeight: 250,
+}, {
+  colorText: { r: 244, g: 244, b: 255, a: 1 },
+  xColorsIdx: 83,
+  fontSize: 250,
+  lineHeight: 250,
+}]
+const { colorText, xColorsIdx, fontSize, lineHeight } = sample(options)
+
+export const initState: ICanvasState = {
+  text: '홍길\n동☆',
   anchor: 0.5,
   seed: 10,
   cellSize: 80,
-  xColorsIdx: 66,
-  lineHeight: 0,
-  fontSize: 190,
+  colorText,
+  xColorsIdx,
+  fontSize,
+  lineHeight,
   fontWeight: 400,
   letterSpacing: 10,
   fontIdx: 11,
