@@ -23,7 +23,7 @@ export default (props: IProps) => {
     : title
 
   return (
-    <div style={{ width: 512 }}>
+    <div className='sliderBasic'>
       <div>
         <span>{label}</span>
       </div>
@@ -36,9 +36,18 @@ export default (props: IProps) => {
         marks={props.marks || true}
         min={props.min}
         max={props.max}
-        onChange={(_, value) => props.setValue(isArray(value) ? value[0] : value)}
+        onChange={(_, value) => {
+          console.log('onChange: ' + value)
+          props.setValue(isArray(value) ? value[0] : value)
+        }}
         getAriaValueText={props.getAriaValueText}
       />
+      <style jsx>{`
+        .sliderBasic {
+          margin-top: 12px;
+        }
+      `}</style>
+
     </div>
   )
 }

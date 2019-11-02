@@ -25,6 +25,10 @@ const TooltipFont = (props) => {
   );
 }
 
+export const getFontFamilyFromFontInfo = (fontInfo: IFontInfo) => {
+  const { fontNameArr, active } = fontInfo
+  return active ? `"${fontNameArr[0]}", ${fontNameArr[1]}` : fontNameArr[1]
+}
 export const fontArr = [
   ['Nanum Gothic', "sans-serif"],
   ['Noto Sans KR', "sans-serif"],
@@ -104,9 +108,11 @@ interface IProps {
   dispatchFontArr: React.Dispatch<IActionFontArr>
 }
 
+/*
 WebFont.load({
   google: { families: initStateFontArr.map( item => item.fontNameArr[0]) },
 })
+*/
 
 export default (props: IProps) => {
   const { stateFontArr, dispatchFontArr, fontIdx, setFontIdx } = props
@@ -119,13 +125,6 @@ export default (props: IProps) => {
   if (!fontInfo.active && !fontInfo.pending) {
     WebFont.load({
       google: { families: [fontNameArr[0]] },
-      fontloading: () => {
-        var el = document.createElement('p');
-        el.style.fontFamily = `'${fontNameArr[0]}`
-        el.style.fontSize = "10px"
-        el.innerHTML = '.'
-        document.body.appendChild(el)
-      },
       active: () => {
         console.log('active: ' + fontNameArr[0])
         dispatchFontArr({ type: 'ACTIVE_FONT', fontName: fontNameArr[0] })
