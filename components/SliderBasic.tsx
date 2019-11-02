@@ -1,6 +1,6 @@
-import { Slider } from '@material-ui/core'
+import { Slider, Tooltip } from '@material-ui/core'
 import { isArray } from 'util'
-import { ElementType, memo } from 'react'
+import { ElementType, memo, ReactNode } from 'react'
 import { ValueLabelProps, Mark } from '@material-ui/core/Slider'
 
 interface IProps {
@@ -13,7 +13,7 @@ interface IProps {
   marks?: boolean | Mark[]
   setValue: (value: number) => void
   ValueLabelComponent?: ElementType<ValueLabelProps>
-  getAriaValueText?: (value: number, index: number) => string
+  valueLabelFormat?: string | ((value: number, index: number) => ReactNode)
 }
 
 const SliderBasic = (props: IProps) => {
@@ -33,6 +33,7 @@ const SliderBasic = (props: IProps) => {
         valueLabelDisplay="auto"
         step={props.step}
         ValueLabelComponent={props.ValueLabelComponent}
+        valueLabelFormat={props.valueLabelFormat}
         marks={props.marks || true}
         min={props.min}
         max={props.max}
@@ -40,7 +41,6 @@ const SliderBasic = (props: IProps) => {
           if (value === props.value) return
           props.setValue(isArray(value) ? value[0] : value)
         }}
-        getAriaValueText={props.getAriaValueText}
       />
       <style jsx>{`
         .sliderBasic {
@@ -53,8 +53,9 @@ const SliderBasic = (props: IProps) => {
 }
 
 const propsAreEqual = (prevProps: Readonly<IProps>, nextProps: Readonly<IProps>) => {
-  // 현재 application 동작 중 value 값의 변화만 일어나기 때문에
+  // 현재 application 동작 중 label, value 값의 변화만 일어나기 때문에
   return prevProps.value === nextProps.value
+    && prevProps.title === nextProps.title
 }
 
 export default memo(SliderBasic, propsAreEqual)

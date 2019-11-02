@@ -1,7 +1,7 @@
 import { PixiComponent } from '@inlet/react-pixi'
 import { TextStyle, Text as PIXIText} from 'pixi.js'
-import { getFontFamilyFromFontInfo, IFontInfo } from './SliderFont'
 import { throttle } from 'lodash'
+import { IFontInfo, getFontFamilyFromFontInfo } from '../logic/reducerFont'
 
 type TPropsPixiComponentText = {
   text: string
@@ -75,6 +75,5 @@ const PixiComponentText = PixiComponent<TPropsPixiComponentText, PIXIText>('Pixi
     throttledUpdateText(instance, oldProps, newProps)
   }
 })
-
 
 export default PixiComponentText

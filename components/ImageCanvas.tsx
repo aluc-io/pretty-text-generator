@@ -8,12 +8,11 @@ import colors from 'nice-color-palettes'
 import PixiComponentText from './PixiComponentText'
 import { ICanvasState } from '../logic/reducer'
 import { RGBColor } from 'react-color'
-import { IFontInfo } from './SliderFont'
+import { IFontInfo } from '../logic/reducerFont'
 
-const getXColors = (arr: string[]) => [arr[0], arr[1], arr[3]]
-
-const getColorNumberFromRGBColor = (color: RGBColor) => {
-  return Number(`0x${rgbHex(color.r, color.g, color.b)}`)
+interface ITextCanvasProps extends ICanvasState {
+  fontInfo: IFontInfo
+  _ref: React.LegacyRef<Stage>,
 }
 
 type TPropsTrianglify = {
@@ -23,11 +22,15 @@ type TPropsTrianglify = {
   y_colors: string | false | string[],
 }
 
+const getXColors = (arr: string[]) => [arr[0], arr[1], arr[3]]
+
+const getColorNumberFromRGBColor = (color: RGBColor) => {
+  return Number(`0x${rgbHex(color.r, color.g, color.b)}`)
+}
+
 const applyPropsTrianglifyRect = (sprite: Sprite, oldProps: TPropsTrianglify, newProps: TPropsTrianglify) => {
-  if (isEqual(newProps, oldProps)) {
-    console.log('isEqual applyPropsTrianglifyRect')
-    return
-  }
+  if (isEqual(newProps, oldProps)) return
+
   const { height, width, cell_size, seed, x_colors, y_colors } = newProps
   const pattern = Trianglify({ height, width, cell_size, seed, x_colors })
   sprite.texture = Texture.from(pattern.canvas())
@@ -42,22 +45,17 @@ const createTrianglifyRect = (props: TPropsTrianglify) => {
 const TrianglifyRect = PixiComponent<TPropsTrianglify, Sprite>('TrianglifyRect', {
   create: createTrianglifyRect,
   applyProps: throttle((...args) => {
-    console.log('throttle')
+    // console.log('throttle')
     applyPropsTrianglifyRect(...args)
-  }, 50, { trailing: true }),
+  }, 60, { trailing: true }),
 })
 const TrianglifyRectLazy = PixiComponent<TPropsTrianglify, Sprite>('TrianglifyRectLazy', {
   create: createTrianglifyRect,
   applyProps: debounce((...args) => {
-    console.log('deboucnce')
+    // console.log('deboucnce')
     applyPropsTrianglifyRect(...args)
   }, 1500, { trailing: true }),
 })
-
-interface ITextCanvasProps extends ICanvasState {
-  fontInfo: IFontInfo
-  _ref: React.LegacyRef<Stage>,
-}
 
 const ImageCanvas: FunctionComponent<ITextCanvasProps> = props => {
   const {

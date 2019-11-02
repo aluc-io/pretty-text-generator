@@ -6,11 +6,12 @@ import colors from 'nice-color-palettes'
 import ReactGA from 'react-ga'
 
 import SliderBasic from './SliderBasic'
-import SliderFont, { reducerFontArr, initStateFontArr, getFontFamilyFromFontInfo } from './SliderFont'
+import SliderFont from './SliderFont'
 import { useScale } from '../logic/helper'
 import reducer, { initState } from '../logic/reducer'
 import ImageCanvas from './ImageCanvas'
 import Sticky from './Sticky'
+import reducerFontArr, { initStateFontArr, getFontFamilyFromFontInfo } from '../logic/reducerFont'
 
 console.log(process.env.GA_TRACKING_ID)
 ReactGA.initialize(process.env.GA_TRACKING_ID)
@@ -23,7 +24,7 @@ const download = (ref: any, text: string) => {
   console.log('download2')
   const canvas: HTMLCanvasElement = ref.current._canvas
   const link = document.createElement('a')
-  link.download = 'pretty-text.png'
+  link.download = 'pt.aluc.io-download.png'
   link.href = canvas.toDataURL('image/png')
   link.click()
 
