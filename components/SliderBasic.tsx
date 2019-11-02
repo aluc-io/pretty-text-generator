@@ -2,7 +2,6 @@ import { Slider } from '@material-ui/core'
 import { isArray } from 'util'
 import { ElementType, memo } from 'react'
 import { ValueLabelProps, Mark } from '@material-ui/core/Slider'
-import { SlideProps } from '@material-ui/core/Slide'
 
 interface IProps {
   title: string
