@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import GHCorner from 'react-gh-corner'

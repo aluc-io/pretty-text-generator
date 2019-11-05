@@ -10,16 +10,12 @@ export const getScale = (windowWidth: number) => {
 }
 
 export const useScale = (initValue: number) => {
-  const [needInitialize, setNeedInitialize] = useState(true)
   const [scale, setScale] = useState(getScale(initValue))
   const handleResize = () => setScale(getScale(window.innerWidth))
   useEffect(() => {
-    // componentDidMount 와 유사
-    needInitialize && handleResize()
-    needInitialize && setNeedInitialize(false)
-
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  })
+  }, [])
   return scale
 }

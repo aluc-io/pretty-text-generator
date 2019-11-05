@@ -17,7 +17,7 @@ const useIsFixed = (initValue: boolean, baseline: number) => {
     }
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
-  })
+  }, [baseline, isFixed])
   return isFixed
 }
 
