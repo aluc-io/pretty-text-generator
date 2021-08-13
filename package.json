@@ -13,7 +13,7 @@
     "detect-browser": "^4.8.0",
     "hex-rgb": "^4.1.0",
     "lodash": "^4.17.15",
-    "next": "9.1.1",
+    "next": "11.1.0",
     "nice-color-palettes": "^3.0.0",
     "pixi.js": "^5.1.5",
     "react": "16.11.0",
