@@ -35,8 +35,6 @@ interface IProps {
 export default (props: IProps) => {
   const { stateFontArr, dispatchFontArr, fontIdx, setFontIdx } = props
   const fontInfo = stateFontArr[fontIdx]
-  // const [title, setTitle] = useState(getTitle(fontInfo))
-
   const { fontNameArr, active } = fontInfo
   const fontName = fontNameArr[0]
   const title = active ? fontName : `${fontName} (loading...)`
