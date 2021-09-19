@@ -2,6 +2,7 @@ import { PixiComponent } from '@inlet/react-pixi'
 import { TextStyle, Text as PIXIText} from 'pixi.js'
 import { throttle } from 'lodash'
 import { IFontInfo, getFontFamilyFromFontInfo } from '../logic/reducerFont'
+import { TextStyleFontWeight } from 'pixi.js-legacy'
 
 type TPropsPixiComponentText = {
   text: string
@@ -12,7 +13,7 @@ type TPropsPixiComponentText = {
   style: {
     // align: 'left',
     fontSize: number
-    fontWeight: string
+    fontWeight: TextStyleFontWeight
     lineHeight: number
     // fill: ['#ffffff', '#00ff99'], // gradient
     fill: string | number | string[] | number[] | CanvasGradient | CanvasPattern
