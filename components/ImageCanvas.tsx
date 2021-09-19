@@ -9,6 +9,7 @@ import PixiComponentText from './PixiComponentText'
 import { ICanvasState } from '../logic/reducer'
 import { RGBColor } from 'react-color'
 import { IFontInfo } from '../logic/reducerFont'
+import { TextStyleFontWeight } from 'pixi.js-legacy'
 
 interface ITextCanvasProps extends ICanvasState {
   fontInfo: IFontInfo
@@ -91,7 +92,7 @@ const ImageCanvas: FunctionComponent<ITextCanvasProps> = props => {
         style={{
           // align: 'left',
           fontSize,
-          fontWeight: String(fontWeight),
+          fontWeight: String(fontWeight) as TextStyleFontWeight,
           lineHeight,
           // fill: ['#ffffff', '#00ff99'], // gradient
           fill: [colorTextAsNumber],
