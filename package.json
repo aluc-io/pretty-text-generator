@@ -34,6 +34,6 @@
     "@types/trianglify": "^1.2.0",
     "@types/webfontloader": "^1.6.29",
     "now": "^16.4.4",
-    "typescript": "^3.6.4"
+    "typescript": "^4.4.3"
   }
 }
